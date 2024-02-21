@@ -1,0 +1,6 @@
+save file: {
+	seed: int,
+	stage: int,
+	distance: int,
+	// add more later, but start with simple model.
+}
