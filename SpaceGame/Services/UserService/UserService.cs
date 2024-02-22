@@ -7,21 +7,25 @@
             new User { Id = 1, Username = "steven", Password = "minecraft" }
         };
 
-        public async Task<ServiceResponse<List<User>>> GetUserList()
+        private readonly IMapper _mapper;
+        public UserService(IMapper mapper)
         {
-            ServiceResponse<List<User>> serviceResponse = new();
+            _mapper = mapper;     
+        }
 
-            serviceResponse.Data = mockUsers;
+        public async Task<ServiceResponse<List<GetUserDto>>> GetUserList()
+        {
+            ServiceResponse<List<GetUserDto>> serviceResponse = new();
+
+            serviceResponse.Data = mockUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<User>> GetSingle(int id)
+        public async Task<ServiceResponse<GetUserDto>> GetSingle(int id)
         {
-            ServiceResponse<User> serviceResponse = new();
+            ServiceResponse<GetUserDto> serviceResponse = new();
 
             var user = mockUsers.FirstOrDefault(user => user.Id == id);
-
-            serviceResponse.Data = user;
 
             if (user is null)
             {
@@ -29,16 +33,18 @@
                 serviceResponse.Message = "User not found";
             }
 
+            serviceResponse.Data = _mapper.Map<GetUserDto>(user);          
+
             return serviceResponse;
         }   
 
-        public async Task<ServiceResponse<List<User>>> AddUser(User newUser)
+        public async Task<ServiceResponse<List<GetUserDto>>> AddUser(AddUserDto newUser)
         {
-            ServiceResponse<List<User>> serviceResponse = new();
+            ServiceResponse<List<GetUserDto>> serviceResponse = new();
 
-            mockUsers.Add(newUser);
+            mockUsers.Add(_mapper.Map<User>(newUser));
 
-            serviceResponse.Data = mockUsers;
+            serviceResponse.Data = mockUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
 
             return serviceResponse;
         }

@@ -15,7 +15,7 @@ namespace SpaceGame.Controllers
         }
 
         [HttpGet("getall")]
-        public async Task<ActionResult<ServiceResponse<List<User>>>> GetUserList()
+        public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> GetUserList()
         {
             var response = await _userService.GetUserList();
 
@@ -23,9 +23,10 @@ namespace SpaceGame.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<User>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> GetSingle(int id)
         {
             var response = await _userService.GetSingle(id);
+
 
             if (response.Data is null)
             {
@@ -35,7 +36,7 @@ namespace SpaceGame.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<User>>>> AddUser(User newUser)
+        public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> AddUser(AddUserDto newUser)
         {
             var response = await _userService.AddUser(newUser);
             return Ok(response);
