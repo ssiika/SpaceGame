@@ -1,4 +1,6 @@
-﻿namespace SpaceGame.Services.UserService
+﻿using SpaceGame.Models;
+
+namespace SpaceGame.Services.UserService
 {
     public class UserService : IUserService
     {
@@ -25,15 +27,22 @@
         {
             ServiceResponse<GetUserDto> serviceResponse = new();
 
-            var user = mockUsers.FirstOrDefault(user => user.Id == id);
+            try
+            {
+                var user = mockUsers.FirstOrDefault(user => user.Id == id);
 
-            if (user is null)
+                if (user is null)
+                {
+                    throw new Exception($"User with id {id} not found");
+                }
+
+                serviceResponse.Data = _mapper.Map<GetUserDto>(user);
+            }
+            catch (Exception ex)
             {
                 serviceResponse.Success = false;
-                serviceResponse.Message = "User not found";
+                serviceResponse.Message = ex.Message;
             }
-
-            serviceResponse.Data = _mapper.Map<GetUserDto>(user);          
 
             return serviceResponse;
         }   
@@ -42,10 +51,39 @@
         {
             ServiceResponse<List<GetUserDto>> serviceResponse = new();
 
-            mockUsers.Add(_mapper.Map<User>(newUser));
+            User user = _mapper.Map<User>(newUser);
+            user.Id = mockUsers.Max(user => user.Id);
+
+            mockUsers.Add(user);
 
             serviceResponse.Data = mockUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
 
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetUserDto>>> UpdateUser(UpdateUserDto updatedUser)
+        {
+            ServiceResponse<List<GetUserDto>> serviceResponse = new();
+
+            try
+            {
+                var foundUser = mockUsers.FirstOrDefault(user => user.Id == updatedUser.Id);
+
+                if (foundUser is null)
+                {
+                    throw new Exception($"User with id {updatedUser.Id} not found");
+                }
+
+                foundUser.Username = updatedUser.Username;
+                foundUser.Password = updatedUser.Password;
+
+                serviceResponse.Data = mockUsers.Select(user => _mapper.Map<GetUserDto>(user)).ToList();
+            }           
+            catch (Exception ex) {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            
             return serviceResponse;
         }
     }

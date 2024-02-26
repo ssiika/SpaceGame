@@ -28,7 +28,7 @@ namespace SpaceGame.Controllers
             var response = await _userService.GetSingle(id);
 
 
-            if (response.Data is null)
+            if (response.Success is false)
             {
                 return NotFound(response.Message);
             }
@@ -39,6 +39,18 @@ namespace SpaceGame.Controllers
         public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> AddUser(AddUserDto newUser)
         {
             var response = await _userService.AddUser(newUser);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> UpdateUser(UpdateUserDto updatedUser)
+        {
+            var response = await _userService.UpdateUser(updatedUser);
+
+            if (response.Success is false)
+            {
+                return NotFound(response.Message);
+            }
             return Ok(response);
         }
     }
