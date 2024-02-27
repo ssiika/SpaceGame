@@ -1,6 +1,9 @@
 save file: {
+	user: User,
 	seed: int,
 	stage: int,
 	distance: int,
 	// add more later, but start with simple model.
 }
+
+I7-4790\SQLEXPRESS

@@ -6,8 +6,10 @@
 
         Task<ServiceResponse<GetUserDto>> GetSingle(int id);
 
-        Task<ServiceResponse<List<GetUserDto>>> AddUser(AddUserDto newUser);
+        Task<ServiceResponse<GetUserDto>> AddUser(AddUserDto newUser);
 
-        Task<ServiceResponse<List<GetUserDto>>> UpdateUser(UpdateUserDto updatedUser);
+        Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updatedUser);
+
+        Task<ServiceResponse<List<GetUserDto>>> DeleteUser(int id);
     }
 }

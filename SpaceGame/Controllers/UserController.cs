@@ -36,14 +36,19 @@ namespace SpaceGame.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> AddUser(AddUserDto newUser)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> AddUser(AddUserDto newUser)
         {
             var response = await _userService.AddUser(newUser);
+
+            if (response.Success is false)
+            {
+                return NotFound(response.Message);
+            }
             return Ok(response);
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<List<GetUserDto>>>> UpdateUser(UpdateUserDto updatedUser)
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> UpdateUser(UpdateUserDto updatedUser)
         {
             var response = await _userService.UpdateUser(updatedUser);
 
@@ -51,6 +56,20 @@ namespace SpaceGame.Controllers
             {
                 return NotFound(response.Message);
             }
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetUserDto>>> DeleteUser(int id)
+        {
+            var response = await _userService.DeleteUser(id);
+
+
+            if (response.Success is false)
+            {
+                return NotFound(response.Message);
+            }
+
             return Ok(response);
         }
     }

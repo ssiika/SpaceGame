@@ -2,11 +2,15 @@ global using AutoMapper;
 global using SpaceGame.Dtos.User;
 global using SpaceGame.Models;
 global using SpaceGame.Services.UserService;
+global using Microsoft.EntityFrameworkCore;
+global using SpaceGame.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<DataContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
