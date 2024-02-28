@@ -1,9 +1,12 @@
 global using AutoMapper;
 global using SpaceGame.Dtos.User;
+global using SpaceGame.Dtos.SaveFile;
 global using SpaceGame.Models;
 global using SpaceGame.Services.UserService;
+global using SpaceGame.Services.SaveFileService;
 global using Microsoft.EntityFrameworkCore;
 global using SpaceGame.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISaveFileService, SaveFileService>();
 
 var app = builder.Build();
 
