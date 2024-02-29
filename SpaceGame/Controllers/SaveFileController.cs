@@ -19,21 +19,49 @@ namespace SpaceGame.Controllers
         {
             var response = await _saveFileService.GetSaveFile();
 
+            if (response.Success is false)
+            {
+                return NotFound(response.Message);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<GetSaveFileDto>>> AddSaveFile(AddSaveFileDto newSaveFile)
+        {
+            var response = await _saveFileService.AddSaveFile(newSaveFile);
+
+            if (response.Success is false)
+            {
+                return NotFound(response.Message);
+            }
+
             return Ok(response);
         }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<GetSaveFileDto>>> UpdateSaveFile()
+        public async Task<ActionResult<ServiceResponse<GetSaveFileDto>>> UpdateSaveFile(UpdateSaveFileDto newSaveFile)
         {
-            var response = await _saveFileService.UpdateSaveFile();
+            var response = await _saveFileService.UpdateSaveFile(newSaveFile);
+
+            if (response.Success is false)
+            {
+                return NotFound(response.Message);
+            }
 
             return Ok(response);
         }
 
         [HttpDelete]
-        public async Task<ActionResult<ServiceResponse<GetSaveFileDto>>> DeleteSaveFile()
+        public async Task<ActionResult<ServiceResponse<bool>>> DeleteSaveFile()
         {
             var response = await _saveFileService.DeleteSaveFile();
+
+            if (response.Success is false)
+            {
+                return NotFound(response.Message);
+            }
 
             return Ok(response);
         }

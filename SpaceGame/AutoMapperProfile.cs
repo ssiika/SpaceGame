@@ -6,6 +6,8 @@
         { 
             CreateMap<User, GetUserDto>();
             CreateMap<AddUserDto, User>();
+            CreateMap<SaveFile, GetSaveFileDto>();
+            CreateMap<AddSaveFileDto, SaveFile>();
         }  
     }
 }
