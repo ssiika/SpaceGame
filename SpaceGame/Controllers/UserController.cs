@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SpaceGame.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles="Admin")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -35,7 +37,7 @@ namespace SpaceGame.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public async Task<ActionResult<ServiceResponse<GetUserDto>>> AddUser(AddUserDto newUser)
         {
             var response = await _userService.AddUser(newUser);
@@ -73,7 +75,7 @@ namespace SpaceGame.Controllers
             return Ok(response);
         }
 
-        [HttpPost("login")]
+        [HttpPost("login"), AllowAnonymous]
         public async Task<ActionResult<ServiceResponse<UserCredsDto>>> LoginUser(AddUserDto loginRequest)
         {
             var response = await _userService.LoginUser(loginRequest);
