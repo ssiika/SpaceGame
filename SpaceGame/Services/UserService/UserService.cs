@@ -1,4 +1,8 @@
-﻿using SpaceGame.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using SpaceGame.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace SpaceGame.Services.UserService
 {
@@ -9,12 +13,14 @@ namespace SpaceGame.Services.UserService
             new User { Id = 1, Username = "steven", Password = "minecraft" }
         };
 
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper;       
         private readonly DataContext _context;
-        public UserService(IMapper mapper, DataContext context)
+        private readonly IConfiguration _conf;
+        public UserService(IMapper mapper, DataContext context, IConfiguration conf)
         {
             _mapper = mapper;     
             _context = context;
+            _conf = conf;
         }
 
         public async Task<ServiceResponse<List<GetUserDto>>> GetUserList()
@@ -51,9 +57,9 @@ namespace SpaceGame.Services.UserService
             return serviceResponse;
         }   
 
-        public async Task<ServiceResponse<GetUserDto>> AddUser(AddUserDto newUser)
+        public async Task<ServiceResponse<UserCredsDto>> AddUser(AddUserDto newUser)
         {
-            ServiceResponse<GetUserDto> serviceResponse = new();
+            ServiceResponse<UserCredsDto> serviceResponse = new();
             User user = _mapper.Map<User>(newUser);
 
             try
@@ -65,6 +71,10 @@ namespace SpaceGame.Services.UserService
                 {
                     throw new Exception("User already exists");
                 }
+
+                string passswordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+                user.Password = passswordHash;
 
                 // user.Id is updated from 0 to the id the user will have in the database here automatically
                 _context.Users.Add(user);
@@ -78,7 +88,13 @@ namespace SpaceGame.Services.UserService
                     throw new Exception("User not added to database successfully");
                 }
 
-                serviceResponse.Data = _mapper.Map<GetUserDto>(addedUser);
+                string token = CreateToken(addedUser);
+
+                serviceResponse.Data = new UserCredsDto
+                {
+                    Username = addedUser.Username,
+                    Token = token
+                };
             }
 
             catch (Exception ex)
@@ -144,6 +160,65 @@ namespace SpaceGame.Services.UserService
             }
 
             return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<UserCredsDto>> LoginUser(AddUserDto loginRequest)
+        {
+            ServiceResponse<UserCredsDto> serviceResponse = new();
+
+            try
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(user => user.Username == loginRequest.Username);
+
+                if (user is null)
+                {
+                    throw new Exception($"Wrong username or password");
+                }
+
+                if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password))
+                {
+                    throw new Exception("Wrong username or password");
+                }
+
+                string token = CreateToken(user);
+
+                serviceResponse.Data = new UserCredsDto
+                {
+                    Username = user.Username,
+                    Token = token
+                };
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;           
+        }
+
+        private string CreateToken(User user)
+        {
+            List<Claim> claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Role, user.Username == "admin" ? "Admin" : "User")
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                _conf.GetSection("AppSettings:Token").Value!));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(7),
+                    signingCredentials: creds
+                );
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
         }
     }
 }

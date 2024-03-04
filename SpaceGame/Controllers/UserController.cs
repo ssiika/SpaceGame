@@ -72,5 +72,19 @@ namespace SpaceGame.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<ServiceResponse<UserCredsDto>>> LoginUser(AddUserDto loginRequest)
+        {
+            var response = await _userService.LoginUser(loginRequest);
+
+
+            if (response.Success is false)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok(response);
+        }
     }
 }
