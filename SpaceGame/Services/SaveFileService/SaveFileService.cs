@@ -1,27 +1,45 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpaceGame.Models;
+using System.Security.Claims;
 
 namespace SpaceGame.Services.SaveFileService
 {
     public class SaveFileService : ISaveFileService
     {
-        private static readonly User testUser = new() { Id = 1, Username = "steven", Password = "minecraft" };
-
         private readonly IMapper _mapper;
         private readonly DataContext _context;
-        public SaveFileService(IMapper mapper, DataContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public SaveFileService(
+            IMapper mapper, 
+            DataContext context,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             _mapper = mapper;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<ServiceResponse<GetSaveFileDto>> GetSaveFile()
         {
             ServiceResponse<GetSaveFileDto> serviceResponse = new();
             try
-            {              
+            {    
+                if (_httpContextAccessor.HttpContext is null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (userId == null)
+                {
+                    throw new Exception("Could not find user id");
+                }
+
                 var userSaveFile = await _context.SaveFiles
-                .Include("User")
-                .FirstOrDefaultAsync(record => record.User != null && record.User.Id == testUser.Id);
+                    .Include("User")
+                    .FirstOrDefaultAsync(saveFile => saveFile.User != null && saveFile.User.Id == int.Parse(userId));
 
                 if (userSaveFile is null)
                 {
@@ -44,13 +62,25 @@ namespace SpaceGame.Services.SaveFileService
             ServiceResponse<GetSaveFileDto> serviceResponse = new();
             try
             {
+                if (_httpContextAccessor.HttpContext is null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (userId == null)
+                {
+                    throw new Exception("Could not find user id");
+                }
+
                 // Make sure user exists in database already first
-                var dbUser = await _context.Users.FindAsync(testUser.Id) ??
+                var dbUser = await _context.Users.FindAsync(int.Parse(userId)) ??
                     throw new Exception("Could not find user");
 
                 var saveFileExists = await _context.SaveFiles
                     .Include("User")
-                    .FirstOrDefaultAsync(record => record.User != null && record.User == dbUser);
+                    .FirstOrDefaultAsync(saveFile => saveFile.User != null && saveFile.User == dbUser);
 
                 if (saveFileExists is not null)
                 {
@@ -83,9 +113,21 @@ namespace SpaceGame.Services.SaveFileService
             ServiceResponse<GetSaveFileDto> serviceResponse = new();
             try
             {
+                if (_httpContextAccessor.HttpContext is null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (userId == null)
+                {
+                    throw new Exception("Could not find user id");
+                }
+
                 var userSaveFile = await _context.SaveFiles
-                .Include("User")
-                .FirstOrDefaultAsync(record => record.User != null && record.User.Id == testUser.Id);
+                    .Include("User")
+                    .FirstOrDefaultAsync(saveFile => saveFile.User != null && saveFile.User.Id == int.Parse(userId));
 
                 if (userSaveFile is null)
                 {
@@ -116,9 +158,21 @@ namespace SpaceGame.Services.SaveFileService
 
             try
             {
+                if (_httpContextAccessor.HttpContext is null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (userId == null)
+                {
+                    throw new Exception("Could not find user id");
+                }
+
                 var userSaveFile = await _context.SaveFiles
                 .Include("User")
-                .FirstOrDefaultAsync(record => record.User != null && record.User.Id == testUser.Id);
+                .FirstOrDefaultAsync(saveFile => saveFile.User != null && saveFile.User.Id == int.Parse(userId));
 
                 if (userSaveFile is null)
                 {

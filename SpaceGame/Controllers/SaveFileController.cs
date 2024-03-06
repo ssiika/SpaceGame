@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SpaceGame.Services.SaveFileService;
 
 namespace SpaceGame.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class SaveFileController : ControllerBase
     {
