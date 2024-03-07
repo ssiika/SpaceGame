@@ -1,0 +1,9 @@
+<ul class="header">
+  <li>
+    <mat-icon class="save">save</mat-icon>
+  </li>
+  <li>
+    <mat-icon class="login" (click)="toggleLoginBox()">login</mat-icon>
+  </li>  
+  <app-login *ngIf="openLogin"></app-login>
+</ul>

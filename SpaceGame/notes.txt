@@ -16,3 +16,9 @@ Angular notes:
 
 - setup routing
 - login overlay on main page
+
+Problems to fix: 
+
+errors show up when moving mouse
+
+login box and header box both have 5vw, but not aligned

@@ -1,0 +1,19 @@
+.save, .login {
+    color: white;
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+}
+
+
+.header {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: end;
+    gap: 50px;
+    right: 5vw;
+    top: 20px;
+    position: absolute;
+}
