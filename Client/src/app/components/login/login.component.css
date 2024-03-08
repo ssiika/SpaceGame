@@ -1,9 +1,28 @@
+.loginContent {
+    text-align: center;
+}
+
 .loginBox {
   position: absolute;
   right: 5vw;
   top: 80px;
-  height: 120px;
-  width: 200px;
+  height: 350px;
+  width: 300px;
   border: 3px solid white;
   border-radius: 5px;
+  display: grid;
+  justify-items: center;
+}
+
+.loginForm {
+  display: grid;
+  grid-template-rows: auto auto 55px auto auto;
+}
+
+.errorBox {
+    color: red;
+}
+
+.toRegPageBtn {
+    color: white;
 }

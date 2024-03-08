@@ -19,6 +19,10 @@ export class LoginComponent {
     password: ''
   });
 
+  onClick(): void {
+    console.log('Click handler not implemented yet')
+  }
+
   onSubmit(): void {
     const userData = {
       username: this.loginForm.value.username!?.trim(),
