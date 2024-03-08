@@ -1,1 +1,45 @@
-<div class="loginBox">login works!</div>
+<div class="loginBox">
+  <app-login-loading *ngIf="isLoading; else content"></app-login-loading>
+
+  <ng-template #content>
+    <div class='loginContent'>
+      <section class="heading">
+        <h1 class='loginHeader'>
+          Login
+        </h1>
+      </section>
+      <form [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()"
+            class='loginForm'>
+        <mat-form-field class="form-group">
+          <mat-label>Username</mat-label>
+          <input matInput
+                 type="text"
+                 class='form-control'
+                 id='username'
+                 name='username'
+                 formControlName="username" />
+        </mat-form-field>
+        <mat-form-field class="form-group">
+          <mat-label>Password</mat-label>
+          <input matInput
+                 type="password"
+                 class='form-control'
+                 id='password'
+                 name='password'
+                 formControlName="password" />
+        </mat-form-field>
+        <div class="errorbox">{{message}}</div>
+        <div className="form-group">
+          <button mat-raised-button color="primary" type='submit' className='loginBtn'>
+            Submit
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </ng-template>
+</div>
+
+
+
