@@ -22,4 +22,3 @@ Problems to fix:
 to switch to register page: 
 	pass isRegister value from header to login page, change in login page
 	
-	fix button class on login page

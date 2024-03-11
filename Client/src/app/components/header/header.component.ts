@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  isLoggedIn: boolean = false;
   openLogin: boolean = false;
 
   toggleLoginBox(): void {

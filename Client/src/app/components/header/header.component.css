@@ -6,6 +6,10 @@
     cursor: pointer;
 }
 
+.disabled {
+    color: lightgray;
+    cursor: default;
+}
 
 .header {
     list-style: none;
