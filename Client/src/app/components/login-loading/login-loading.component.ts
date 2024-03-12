@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./login-loading.component.css']
 })
 export class LoginLoadingComponent {
+  isLoginPage: boolean = true;
 
+  changePage(): void {
+    this.isLoginPage = !this.isLoginPage;
+  }
 }

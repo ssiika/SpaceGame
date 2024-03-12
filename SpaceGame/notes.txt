@@ -20,5 +20,6 @@ Angular notes:
 Problems to fix: 
 
 to switch to register page: 
-	pass isRegister value from header to login page, change in login page
+	accountBox -> login/register
+	accountBox controls switching between pages
 	

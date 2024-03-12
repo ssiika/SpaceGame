@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { LoginLoadingComponent } from './components/login-loading/login-loading.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AccountBoxComponent } from './components/account-box/account-box.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RegisterComponent } from './components/register/register.component';
     HeaderComponent,
     LoginComponent,
     LoginLoadingComponent,
-    RegisterComponent
+    RegisterComponent,
+    AccountBoxComponent
   ],
   imports: [
     BrowserModule,

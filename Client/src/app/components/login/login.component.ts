@@ -13,11 +13,18 @@ export class LoginComponent {
 
   message: string = '';
   isLoading: boolean = false;
+  isLoginPage: boolean = true;
+
+  
 
   loginForm = this.formBuilder.group({
     username: '',
     password: ''
   });
+
+  changePage(): void {
+    this.isLoginPage = !this.isLoginPage;
+  }
 
   onClick(): void {
     console.log('Click handler not implemented yet')
