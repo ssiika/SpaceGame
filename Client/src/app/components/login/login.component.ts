@@ -22,14 +22,6 @@ export class LoginComponent {
     password: ''
   });
 
-  changePage(): void {
-    this.isLoginPage = !this.isLoginPage;
-  }
-
-  onClick(): void {
-    console.log('Click handler not implemented yet')
-  }
-
   onSubmit(): void {
     const userData = {
       username: this.loginForm.value.username!?.trim(),

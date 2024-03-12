@@ -1,1 +1,10 @@
-<p>account-box works!</p>
+<div class="loginBox" *ngIf="openLogin; else openRegister">
+  <app-login></app-login>
+  <button mat-button class="changePageBtn" color="regBtn" (click)="changePage()">No Account? Register Here</button>
+</div>
+<ng-template #openRegister>
+  <div class="registerBox">
+    <app-register></app-register>
+    <button mat-button class="changePageBtn" color="regBtn" (click)="changePage()">Back to Login</button>
+  </div> 
+</ng-template>

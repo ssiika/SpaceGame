@@ -1,4 +1,4 @@
-<div class="loginBox">
+
   <app-login-loading *ngIf="isLoading; else content"></app-login-loading>
 
   <ng-template #content>
@@ -35,12 +35,9 @@
             Submit
           </button>
         </div>
-
-      </form>
-      <button mat-button class="toRegPageBtn" color="regBtn" (click)="onClick()">No Account? Register Here</button>
+      </form>      
     </div>
   </ng-template>
-</div>
 
 
 

@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-box.component.css']
 })
 export class AccountBoxComponent {
-  isLogin: boolean = true;
+  openLogin: boolean = true;
+
+  changePage(): void {
+    this.openLogin = !this.openLogin;
+  }
 }
