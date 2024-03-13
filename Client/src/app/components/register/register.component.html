@@ -1,1 +1,50 @@
-<p>register works!</p>
+<app-login-loading *ngIf="isLoading; else content"></app-login-loading>
+
+<ng-template #content>
+  <div class='registerContent'>
+    <section class="heading">
+      <h1 class='registerHeader'>
+        Register
+      </h1>
+    </section>
+    <form [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()"
+          class='registerForm'>
+      <mat-form-field class="form-group">
+        <mat-label>Username</mat-label>
+        <input matInput
+               type="text"
+               class='form-control'
+               id='username'
+               name='username'
+               formControlName="username" />
+      </mat-form-field>
+      <mat-form-field class="form-group">
+        <mat-label>Password</mat-label>
+        <input matInput
+               type="password"
+               class='form-control'
+               id='password'
+               name='password'
+               formControlName="password" />
+      </mat-form-field>
+      <mat-form-field class="form-group">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput
+               type="password"
+               class='form-control'
+               id='passwordConfirm'
+               name='passwordConfirm'
+               formControlName="passwordConfirm" />
+      </mat-form-field>
+      <div class="errorBox">{{message}}</div>
+      <div class="form-group">
+        <button mat-raised-button color="primary" type='submit' class='registerBtn'>
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+

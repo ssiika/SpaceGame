@@ -1,0 +1,19 @@
+.registerContent {
+  text-align: center;
+}
+
+.registerHeader {
+  margin-bottom: 50px;
+}
+
+.registerForm {
+  display: grid;
+  grid-template-rows: auto auto auto 55px 50px;
+  justify-items: center;
+}
+
+.errorBox {
+  color: red;
+  width: 200px;
+  font-size: 12px;
+}

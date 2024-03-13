@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from '../../services/authService/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +9,12 @@ import { FormBuilder } from '@angular/forms';
 })
 export class LoginComponent {
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
   ) { }
 
   message: string = '';
-  isLoading: boolean = false;
-  isLoginPage: boolean = true;
-
-  
+  isLoading: boolean = false;  
 
   loginForm = this.formBuilder.group({
     username: '',
@@ -32,5 +31,18 @@ export class LoginComponent {
       this.message = 'Please provide a username and password'
       return
     }
+
+    this.isLoading = true;
+
+    this.authService.login(userData)
+      .subscribe(res => {
+        if (!res.success) {
+          this.message = res.message;
+        } else {
+          localStorage.setItem('user', JSON.stringify(res.data))
+        }
+        this.isLoading = false;
+      });
+    this.loginForm.reset();
   }
 }
