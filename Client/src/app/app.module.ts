@@ -12,6 +12,7 @@ import { MaterialModule } from './material.module';
 import { LoginLoadingComponent } from './components/login-loading/login-loading.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AccountBoxComponent } from './components/account-box/account-box.component';
+import { ReloadComponent } from './pages/reload/reload.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AccountBoxComponent } from './components/account-box/account-box.compon
     LoginComponent,
     LoginLoadingComponent,
     RegisterComponent,
-    AccountBoxComponent
+    AccountBoxComponent,
+    ReloadComponent
   ],
   imports: [
     HttpClientModule,

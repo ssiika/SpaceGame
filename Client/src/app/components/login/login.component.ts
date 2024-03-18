@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/authService/auth.service';
 
@@ -11,6 +12,7 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private router: Router
   ) { }
 
   message: string = '';
@@ -20,6 +22,13 @@ export class LoginComponent {
     username: '',
     password: ''
   });
+
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
 
   onSubmit(): void {
     const userData = {
@@ -34,26 +43,23 @@ export class LoginComponent {
 
     this.isLoading = true;
 
-    /* this.authService.login(userData)
+    this.authService.login(userData)
       .subscribe(res => {
         if (!res.success) {
           this.message = res.message;
         } else {
-          localStorage.setItem('user', JSON.stringify(res.data))
+          localStorage.setItem('user', JSON.stringify(res.data));
+          this.router.navigate(['/reload']);
         }
         this.isLoading = false;
       });
-    this.loginForm.reset(); */
+    this.loginForm.reset();
 
-    this.authService.test()
-      .subscribe(res => {
-        if (!res.success) {
-          this.message = res;
-        } else {
-          this.message = res[0].date;
-        }
-        console.log(this.message);
-        this.isLoading = false;
-      });
+  }
+
+  ngOnInit(): void {
+    if (this.authService.getValidUsername()) {
+      this.router.navigate(['/'])
+    };
   }
 }

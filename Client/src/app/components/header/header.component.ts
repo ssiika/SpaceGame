@@ -13,4 +13,8 @@ export class HeaderComponent {
   toggleLoginBox(): void {
     this.openLogin = !this.openLogin;
   }
+
+  ngOnInit(): void {
+    console.log(this.openLogin);
+  }
 }

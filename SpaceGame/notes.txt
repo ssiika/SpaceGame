@@ -22,4 +22,7 @@ Problems to fix:
 to switch to register page: 
 	accountBox -> login/register
 	accountBox controls switching between pages
+
+	*rework how reloading page after logging in works
+		(problem: app.component.ts does not fully reload when switching routes)
 	
