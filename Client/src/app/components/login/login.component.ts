@@ -34,7 +34,7 @@ export class LoginComponent {
 
     this.isLoading = true;
 
-    this.authService.login(userData)
+    /* this.authService.login(userData)
       .subscribe(res => {
         if (!res.success) {
           this.message = res.message;
@@ -43,6 +43,17 @@ export class LoginComponent {
         }
         this.isLoading = false;
       });
-    this.loginForm.reset();
+    this.loginForm.reset(); */
+
+    this.authService.test()
+      .subscribe(res => {
+        if (!res.success) {
+          this.message = res;
+        } else {
+          this.message = res[0].date;
+        }
+        console.log(this.message);
+        this.isLoading = false;
+      });
   }
 }

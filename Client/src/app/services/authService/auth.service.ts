@@ -29,4 +29,11 @@ export class AuthService {
         catchError(this.errorService.handleError<UserCreds>())
       );
   }
+
+  test(): Observable<any> {
+    return this.http.get<any>('weatherforecast', this.httpOptions)
+      .pipe(
+        catchError(this.errorService.handleError<any>())
+      );
+  }
 }

@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://localhost:7060",
+    "secure": false
+  },
+  "/weatherforecast": {
+    "target": "https://localhost:7060",
+    "secure": false
+  }
+}
