@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from '../../services/authService/auth.service';
 
 
 @Component({
@@ -9,7 +11,9 @@ import { FormBuilder } from '@angular/forms';
 })
 export class RegisterComponent {
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   message: string = '';
@@ -39,5 +43,19 @@ export class RegisterComponent {
       username: this.registerForm.value.username!?.trim(),
       password: this.registerForm.value.password!?.trim(),
     }
+
+    this.isLoading = true;
+
+    this.authService.register(userData)
+      .subscribe(res => {
+        if (!res.success) {
+          this.message = res.message;
+        } else {
+          localStorage.setItem('user', JSON.stringify(res.data));
+          this.router.navigate(['/reload']);
+        }
+        this.isLoading = false;
+      });
+    this.registerForm.reset();
   }
 }

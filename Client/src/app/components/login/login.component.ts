@@ -56,10 +56,4 @@ export class LoginComponent {
     this.loginForm.reset();
 
   }
-
-  ngOnInit(): void {
-    if (this.authService.getValidUsername()) {
-      this.router.navigate(['/'])
-    };
-  }
 }

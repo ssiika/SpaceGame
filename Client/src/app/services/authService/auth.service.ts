@@ -41,6 +41,17 @@ export class AuthService {
     return '';
   }
 
+  getToken(): string {
+    const localUser = localStorage.getItem('user');
+
+    if (localUser) {
+      const token = JSON.parse(localUser).token;
+      return token;
+    }
+
+    return '';
+  }
+
   login(userData: UserData): Observable<ServiceResponse<UserCreds>> {
     return this.http.post<ServiceResponse<UserCreds>>(this.API_URL + 'login', userData, this.httpOptions)
       .pipe(
@@ -48,10 +59,10 @@ export class AuthService {
       );
   }
 
-  test(): Observable<any> {
-    return this.http.get<any>('weatherforecast', this.httpOptions)
+  register(userData: UserData): Observable<ServiceResponse<UserCreds>> {
+    return this.http.post<ServiceResponse<UserCreds>>(this.API_URL, userData, this.httpOptions)
       .pipe(
-        catchError(this.errorService.handleError<any>())
+        catchError(this.errorService.handleError<UserCreds>())
       );
   }
 }

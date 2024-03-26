@@ -12,10 +12,11 @@ export class ErrorService {
   handleError<T>() {
     return (error: any): Observable<ServiceResponse<T>> => {
 
+      console.log(error);
       const errorResponse: ServiceResponse<T> = {
         success: false,
-        message: (error.error && error.error.message)
-          ? error.error.message
+        message: error.error
+          ? error.error
           : error.message
       }
 
