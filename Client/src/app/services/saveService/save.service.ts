@@ -3,6 +3,8 @@ import { SaveFile, ServiceResponse } from '../../types';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ErrorService } from '../errorService/error.service';
 import { AuthService } from '../authService/auth.service';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +18,12 @@ export class SaveService {
 
   API_URL: string = '/api/SaveFile/';
 
-  getSaveFile(): void {
+  getSaveFile(): Observable<ServiceResponse<SaveFile>> {
     const options = this.initOptions();
-    // Implement get request
+    return this.http.get<ServiceResponse<SaveFile>>(this.API_URL, options)
+      .pipe(
+        catchError(this.errorService.handleError<SaveFile>())
+      );
   }
 
   private initOptions(): Object {

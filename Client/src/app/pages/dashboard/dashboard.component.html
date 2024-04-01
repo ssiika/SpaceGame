@@ -1,2 +1,15 @@
 <app-header></app-header>
-<p>User {{username ? username : 'none'}} Data: {{saveFile ? saveFile : 'no save file'}}</p>
+<app-spinner *ngIf="isLoading"></app-spinner>
+<p>{{message ? message : 'no error'}}</p>
+<p>User {{username ? username : 'none'}}</p>
+<div *ngIf="saveFile">
+  <div>
+    seed: {{saveFile.seed}}
+  </div>
+  <div>
+    stage: {{saveFile.stage}}
+  </div>
+  <div>
+    distance: {{saveFile.distance}}
+  </div>
+</div>

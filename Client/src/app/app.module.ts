@@ -13,6 +13,7 @@ import { LoginLoadingComponent } from './components/login-loading/login-loading.
 import { RegisterComponent } from './components/register/register.component';
 import { AccountBoxComponent } from './components/account-box/account-box.component';
 import { ReloadComponent } from './pages/reload/reload.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReloadComponent } from './pages/reload/reload.component';
     LoginLoadingComponent,
     RegisterComponent,
     AccountBoxComponent,
-    ReloadComponent
+    ReloadComponent,
+    SpinnerComponent
   ],
   imports: [
     HttpClientModule,

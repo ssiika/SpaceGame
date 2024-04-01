@@ -1,9 +1,9 @@
 export interface SaveFile {
-  Id: number;
-  User?: GetUserDto;
-  Seed: number;
-  Stage: number;
-  Distance: number;
+  id: number;
+  user?: GetUserDto;
+  seed: number;
+  stage: number;
+  distance: number;
 }
 
 export interface GetUserDto {

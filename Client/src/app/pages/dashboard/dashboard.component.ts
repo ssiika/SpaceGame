@@ -15,14 +15,26 @@ export class DashboardComponent {
     private saveService: SaveService
   ) { }
 
+  message: string = '';
   saveFile?: SaveFile;
   username: string = '';
+  isLoading: boolean = false;
 
   ngOnInit(): void {
     this.username = this.authService.getValidUsername();
 
     if (this.username) {
-      this.saveService.getSaveFile();
+      this.isLoading = true;
+
+      this.saveService.getSaveFile()
+        .subscribe(res => {
+          if (!res.success) {
+            this.message = res.message;
+          } else {
+            this.saveFile = res.data;
+          }
+          this.isLoading = false;
+        }); 
     }
   };
 }
