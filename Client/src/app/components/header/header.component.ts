@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/authService/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +8,29 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  constructor(
+    private authService: AuthService
+  ) { }
+
   isLoggedIn: boolean = false;
   openLogin: boolean = false;
+
+  username: string = '';
 
   toggleLoginBox(): void {
     this.openLogin = !this.openLogin;
   }
+
+  save(): void {
+    console.log('saved');
+    // Implement save functionality
+  }
+
+  ngOnInit(): void {
+    this.username = this.authService.getValidUsername();
+
+    if (this.username) {
+      this.isLoggedIn = true;
+    }
+  };
 }

@@ -1,8 +1,14 @@
 <ul class="header">
   <li>
-    <mat-icon
-      [ngClass]="isLoggedIn ? 'save' : 'save disabled'"
-      [title]="isLoggedIn ? '' : 'Please log in to enable saving'"
+    <mat-icon *ngIf="isLoggedIn"
+      [ngClass]="'save'"
+      (click)="save()"
+     >
+      save
+    </mat-icon>
+    <mat-icon *ngIf="!isLoggedIn"
+      [ngClass]="'save disabled'"
+      [title]="'Please log in to enable saving'"
      >
       save
     </mat-icon>

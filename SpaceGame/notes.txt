@@ -14,8 +14,7 @@ Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoY
 
 Angular notes: 
 
-- setup routing
-- login overlay on main page
+- Split header component into *ngIf isLoggedIn and #loggedOut
 
 Problems to fix: 
 
