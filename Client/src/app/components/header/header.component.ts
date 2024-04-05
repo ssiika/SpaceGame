@@ -26,6 +26,11 @@ export class HeaderComponent {
     // Implement save functionality
   }
 
+  logout(): void {
+    console.log('logout');
+    // Implement logout functionality
+  }
+
   ngOnInit(): void {
     this.username = this.authService.getValidUsername();
 

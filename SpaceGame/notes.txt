@@ -16,10 +16,5 @@ Angular notes:
 
 - Split header component into *ngIf isLoggedIn and #loggedOut
 
-Problems to fix: 
-
-to switch to register page: 
-	accountBox -> login/register
-	accountBox controls switching between pages
 
 	

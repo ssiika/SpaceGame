@@ -1,20 +1,31 @@
-<ul class="header">
-  <li>
-    <mat-icon *ngIf="isLoggedIn"
-      [ngClass]="'save'"
-      (click)="save()"
-     >
-      save
-    </mat-icon>
-    <mat-icon *ngIf="!isLoggedIn"
-      [ngClass]="'save disabled'"
-      [title]="'Please log in to enable saving'"
-     >
-      save
-    </mat-icon>
-  </li>
-  <li>
-    <mat-icon class="login" (click)="toggleLoginBox()">login</mat-icon>
-  </li>  
-</ul>
-<app-account-box *ngIf="openLogin"></app-account-box>
+<div *ngIf="isLoggedIn; else loggedOut">
+  <ul class="header">
+    <li>
+      <mat-icon
+        [ngClass]="'save'"
+        (click)="save()"
+      >
+        save
+      </mat-icon>
+    </li>
+    <li>
+      <mat-icon class="logout" (click)="logout()">logout</mat-icon>
+    </li>  
+  </ul> 
+</div>
+<ng-template #loggedOut>
+  <div>
+    <ul class="header">
+      <li>
+        <mat-icon [ngClass]="'save disabled'"
+                  [title]="'Please log in to enable saving'">
+          save
+        </mat-icon>
+      </li>
+      <li>
+        <mat-icon class="login" (click)="toggleLoginBox()">login</mat-icon>
+      </li>
+    </ul>
+    <app-account-box *ngIf="openLogin"></app-account-box>
+  </div>
+</ng-template>
