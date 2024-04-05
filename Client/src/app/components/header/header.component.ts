@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/authService/auth.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { AuthService } from '../../services/authService/auth.service';
 export class HeaderComponent {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   isLoggedIn: boolean = false;
@@ -27,8 +29,8 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    console.log('logout');
-    // Implement logout functionality
+    localStorage.removeItem('user');
+    this.router.navigate(['/reload']);
   }
 
   ngOnInit(): void {
