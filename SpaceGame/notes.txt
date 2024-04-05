@@ -14,7 +14,9 @@ Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoY
 
 Angular notes: 
 
-- Split header component into *ngIf isLoggedIn and #loggedOut
+-- figure out way to get new save data from dashboard component and transfer it to save function
+
+-- set temp save file with get/set functions in save service?
 
 
 	

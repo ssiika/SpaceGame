@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SaveFile } from '../../types';
+import { SaveFile, UpdateSaveFileDto } from '../../types';
 import { AuthService } from '../../services/authService/auth.service';
 import { SaveService } from '../../services/saveService/save.service';
 
@@ -19,6 +19,11 @@ export class DashboardComponent {
   saveFile?: SaveFile;
   username: string = '';
   isLoading: boolean = false;
+
+  // This section is only for testing update save file functionality
+  dummySeed: number = 0;
+  dummyStage: number = 0;
+  dummyDistance: number = 0;
 
   ngOnInit(): void {
     this.username = this.authService.getValidUsername();

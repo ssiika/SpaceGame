@@ -6,6 +6,12 @@ export interface SaveFile {
   distance: number;
 }
 
+export interface UpdateSaveFileDto {
+  seed: number;
+  stage: number;
+  distance: number;
+}
+
 export interface GetUserDto {
   Id: number;
   Username: string;
