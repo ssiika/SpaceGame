@@ -21,9 +21,18 @@ export class DashboardComponent {
   isLoading: boolean = false;
 
   // This section is only for testing update save file functionality
-  dummySeed: number = 0;
-  dummyStage: number = 0;
-  dummyDistance: number = 0;
+  dummySeed: number = 1;
+  dummyStage: number = 2;
+  dummyDistance: number = 3;
+
+  dummySet(): void {
+
+    this.saveService.setCacheSave({
+      seed: this.dummySeed,
+      stage: this.dummyStage,
+      distance: this.dummyDistance
+    });
+  }
 
   ngOnInit(): void {
     this.username = this.authService.getValidUsername();

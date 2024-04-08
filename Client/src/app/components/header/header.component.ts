@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/authService/auth.service';
+import { SaveService } from '../../services/saveService/save.service';
+import { SaveFile } from '../../types';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +13,7 @@ export class HeaderComponent {
 
   constructor(
     private authService: AuthService,
+    private saveService: SaveService,
     private router: Router
   ) { }
 
@@ -24,8 +27,20 @@ export class HeaderComponent {
   }
 
   save(): void {
-    console.log('saved');
-    // Implement save functionality
+    var cacheSave = this.saveService.getCacheSave();
+    if (!cacheSave) {
+      console.log('No file to save');
+      return;
+    }
+
+    this.saveService.updateSaveFile(cacheSave)
+      .subscribe(res => {
+        if (!res.success) {
+          console.log(res.message);
+        } else {
+          console.log(res.data);
+        }
+      });
   }
 
   logout(): void {
