@@ -1,3 +1,8 @@
+<app-save-popup
+     *ngIf="popupIsOpen"
+     [message]="popupMessage"
+     [saveSuccess]="saveSuccess"
+></app-save-popup>
 <div *ngIf="isLoggedIn; else loggedOut">
   <ul class="header">
     <li>

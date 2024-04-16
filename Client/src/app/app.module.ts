@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AccountBoxComponent } from './components/account-box/account-box.component';
 import { ReloadComponent } from './pages/reload/reload.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SavePopupComponent } from './components/save-popup/save-popup.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     RegisterComponent,
     AccountBoxComponent,
     ReloadComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SavePopupComponent
   ],
   imports: [
     HttpClientModule,

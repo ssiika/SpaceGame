@@ -16,9 +16,5 @@ Angular notes:
 
 -- when saving game, add a popup message to say it save succeeded
 
--- figure out way to get new save data from dashboard component and transfer it to save function
-
--- set temp save file with get/set functions in save service?
-
 
 	

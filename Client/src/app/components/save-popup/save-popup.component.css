@@ -1,0 +1,14 @@
+.savePopup {
+    position: absolute;
+    top: 50px;
+    height: 50px;
+    width: 300px;
+}
+
+.success {
+    background-color: green;
+}
+
+.failure {
+    background-color: red;
+}

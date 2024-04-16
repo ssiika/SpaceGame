@@ -20,16 +20,40 @@ export class HeaderComponent {
   isLoggedIn: boolean = false;
   openLogin: boolean = false;
 
+  popupIsOpen: boolean = false;
+  saveSuccess: boolean = false;
+  popupMessage: string = '';
+  timer?: ReturnType<typeof setTimeout>;
+
   username: string = '';
 
   toggleLoginBox(): void {
     this.openLogin = !this.openLogin;
   }
 
+  openSavePopup(message: string): void {
+
+    // Clear timeout and close current popup is save is pressed multiple times in succession
+    if (this.popupIsOpen) {
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      this.popupIsOpen = false;
+    }
+
+    this.popupIsOpen = true;
+    this.popupMessage = message;
+    this.timer = setTimeout(() => {
+      this.popupIsOpen = false;
+    }, 5000)
+  }
+
   save(): void {
     var cacheSave = this.saveService.getCacheSave();
     if (!cacheSave) {
       console.log('No file to save');
+      this.saveSuccess = false;
+      this.openSavePopup('No file to save');
       return;
     }
 
@@ -37,8 +61,12 @@ export class HeaderComponent {
       .subscribe(res => {
         if (!res.success) {
           console.log(res.message);
+          this.saveSuccess = false;
+          this.openSavePopup(res.message);
         } else {
           console.log(res.data);
+          this.saveSuccess = true;
+          this.openSavePopup('Successfully saved game')
         }
       });
   }
