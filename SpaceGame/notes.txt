@@ -14,7 +14,7 @@ Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoY
 
 Angular notes: 
 
--- when saving game, add a popup message to say it save succeeded
+-- add animations to save popup
 
 
 	

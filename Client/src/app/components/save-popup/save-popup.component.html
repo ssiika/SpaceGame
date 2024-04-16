@@ -1,3 +1,5 @@
-<div [ngClass]="saveSuccess ? 'savePopup success' : 'savePopup failure'">
+<div
+     [@popup]="isOpen ? 'open' : 'closed'"
+     [ngClass]="saveSuccess ? 'savePopup success' : 'savePopup failure'">
   {{message ? message : "No message"}}
 </div>
