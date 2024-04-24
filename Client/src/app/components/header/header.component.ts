@@ -45,7 +45,7 @@ export class HeaderComponent {
     this.popupMessage = message;
     this.timer = setTimeout(() => {
       this.popupIsOpen = false;
-    }, 5000)
+    }, 3000)
   }
 
   save(): void {

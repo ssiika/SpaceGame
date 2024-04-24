@@ -1,5 +1,6 @@
 .savePopup {
   position: absolute;
+  box-sizing: border-box;
   top: 25px;
   height: 50px;
   width: 300px;
@@ -8,6 +9,8 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+  padding-top: 10px;
 }
 
 .success {
